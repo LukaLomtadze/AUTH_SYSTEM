@@ -22,6 +22,10 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    has2Step:{
+        type: Boolean,
+        default: false,
+    },
 
     resetPasswordToken: String,
     resetPasswordExpiresAt: Date,
