@@ -154,7 +154,7 @@ export const logOut = async(req,res) => {
     }
 }
 
-export const checkAuth = async (req, res) => {
+export const checkAuth = async (req, res) => { //this function is to determine in frontend if user is logged in or not so we can display login/signup pages depended on state of this method
     try {
         if(!req.userId)   {
             return res.status(400).json({sucess:false, message: "Unauthorized - No Token Provided"})
@@ -196,6 +196,40 @@ export const forgotPassword = async(req, res) => {
         sendPasswordResetEmail(email, `${process.env.CLIENT_URL}/reset-password/${resetToken}`, user.name)
 
         res.status(200).json({sucess:true, message: "Password reset request sent to your email"})
+    } catch (error) {
+        console.error("Error signing up", error)
+        res.status(500).json({
+            sucess:false,
+            message: "Server Error: " + error
+        })
+    }
+}
+
+export const resetPassword = async(req, res) => {
+    try {
+        const {token} = req.params
+        const {password} = req.body;
+
+        const user = await User.findOne({
+            resetToken: token,
+            resetTokenExpiresAt: {$gt: Date.now()}
+        })
+
+        if(!user){
+            return res.status(404).json({sucess: false, message: "Invalid or expired reset token"})
+        }
+
+        const hashsedPassword = await bcrypt.hash(password, 10)
+        user.password = hashsedPassword
+        user.resetToken = undefined
+        user.resetTokenExpiresAt = undefined
+
+        await user.save()
+
+        sendResetPasswordSuccess(user.email, user.name)
+
+        res.status(200).json({sucess: true, message: "Password changed successfully"})
+
     } catch (error) {
         console.error("Error signing up", error)
         res.status(500).json({
