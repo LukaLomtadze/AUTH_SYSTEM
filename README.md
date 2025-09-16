@@ -2,29 +2,47 @@ A Node.js authentication system with email verification, password reset, JWT-bas
 
 
 Features
+
 User signup and login with email verification
+
 JWT authentication stored in httpOnly cookies
+
 Password reset via email with expiring tokens
+
 Email notifications for verification, welcome, and password reset
+
 Secure password hashing with bcryptjs
+
 Easy-to-modify email templates using HTML and inline CSS
 
 
+
 Tech Stack
+
 Node.js & Express.js
+
 MongoDB & Mongoose
+
 JWT for authentication
+
 bcryptjs for password hashing
+
 Nodemailer for sending emails
+
 dotenv for environment variables
+
 cookie-parser for handling cookies
 
 
 
 Getting Started
+
 Prerequisites
+
 Node.js >= 18
+
 MongoDB database (local or Atlas)
+
 Gmail account for sending emails
 
 
@@ -32,6 +50,7 @@ Gmail account for sending emails
 Installation
 # Clone the repository
 git clone https://github.com/LukaLomtadze/AUTH_SYSTEM.git
+
 cd project-name
 
 # Install dependencies
@@ -76,12 +95,24 @@ NODE_ENV=development
 | GET    | /api/auth/checkAuth              | Check if user is logged in (JWT cookie) |
 
 
-Email Templates
+Email Templates:
+
 Verification Email: Sends a 6-digit verification code to new users.
+
 Welcome Email: Sent after email verification.
+
 Password Reset Request: Contains a link to reset password.
+
 Password Reset Success: Confirms password has been changed.
+
 All templates are located in Mailer/emailTemplates.js and can be customized easily.
+
+
+
+
+All you need to is to create mongoDB database get connection string. In the root of your backend folder create .env file copy and paste all the envirometal variables from up above in that env file.
+Change MONGO_URI to connection string you grabbed from mongoDB. Set your email and gmail app password in the envirometal variables and your are all set
+
 
 
 
