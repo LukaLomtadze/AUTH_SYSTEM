@@ -2,7 +2,7 @@ import User from "../Models/user.model.js";
 import bcrypt from "bcryptjs";
 import { generateTokenAndSetCookie } from "../Utils/generateTokenAndSetCookie.js";
 import mongoose from "mongoose";
-import { sendPasswordResetEmail, sendVErifyEmail, sendWelcomeEmail } from "../Mailer/SendingEmail.js";
+import { sendPasswordResetEmail, sendVErifyEmail, sendWelcomeEmail, sendResetPasswordSuccess } from "../Mailer/SendingEmail.js";
 import crypto from "crypto"
 
 
@@ -112,7 +112,7 @@ export const logIn = async(req, res) => {
         const isPasswordValid = await bcrypt.compare(password, user.password)
 
         if(!isPasswordValid){
-            return res.save(401).json({sucess: false, message: "Invalid Password"})
+            return res.status(401).json({sucess: false, message: "Invalid Password"})
         }
 
         generateTokenAndSetCookie(res, user._id)
@@ -188,8 +188,8 @@ export const forgotPassword = async(req, res) => {
         const resetToken = crypto.randomBytes(20).toString("hex")
         const resetTokenExpiresAt = Date.now() + 1 + 60 * 60 * 1000 // 1 saati
 
-        user.resetToken = resetToken;
-        user.resetTokenExpiresAt = resetTokenExpiresAt;
+        user.resetPasswordToken = resetToken;
+        user.resetPasswordExpiresAt = resetTokenExpiresAt;
 
         await user.save()
 
@@ -211,8 +211,8 @@ export const resetPassword = async(req, res) => {
         const {password} = req.body;
 
         const user = await User.findOne({
-            resetToken: token,
-            resetTokenExpiresAt: {$gt: Date.now()}
+            resetPasswordToken: token,
+            resetPasswordExpiresAt: {$gt: Date.now()}
         })
 
         if(!user){
@@ -221,8 +221,8 @@ export const resetPassword = async(req, res) => {
 
         const hashsedPassword = await bcrypt.hash(password, 10)
         user.password = hashsedPassword
-        user.resetToken = undefined
-        user.resetTokenExpiresAt = undefined
+        user.resetPasswordToken = undefined
+        user.resetPasswordExpiresAt = undefined
 
         await user.save()
 
