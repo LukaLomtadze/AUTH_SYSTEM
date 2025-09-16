@@ -47,9 +47,18 @@ Gmail account for sending emails
 
 --------------------------------------------------------------------
 
-## What to do
-All you need to is to create mongoDB database get connection string. In the root of your backend folder create .env file copy and paste all the envirometal variables from up above in that env file.
-Change MONGO_URI to connection string you grabbed from mongoDB. Set your email and gmail app password in the envirometal variables and your are all set
+## What to Do
+1.Create a MongoDB database and copy your connection string.
+
+2.In the root of your backend folder, create a .env file.
+
+3.Copy the environment variables listed below into the .env file.
+
+4.Replace MONGO_URI with your MongoDB connection string.
+
+5.Set your Gmail email and Gmail app password in the environment variables.
+
+6.Once that’s done, your backend is ready to run!
 
 --------------------------------------------------------------------
 
