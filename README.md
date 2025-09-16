@@ -1,7 +1,7 @@
-A Node.js authentication system with email verification, password reset, JWT-based authentication, and secure cookie handling.
+# A Node.js authentication system with email verification, password reset, JWT-based authentication, and secure cookie handling.
 
 
-Features
+## Features
 
 User signup and login with email verification
 
@@ -15,9 +15,9 @@ Secure password hashing with bcryptjs
 
 Easy-to-modify email templates using HTML and inline CSS
 
+--------------------------------------------------------------------
 
-
-Tech Stack
+## Tech Stack
 
 Node.js & Express.js
 
@@ -33,9 +33,9 @@ dotenv for environment variables
 
 cookie-parser for handling cookies
 
+--------------------------------------------------------------------
 
-
-Getting Started
+## Getting Started
 
 Prerequisites
 
@@ -45,22 +45,29 @@ MongoDB database (local or Atlas)
 
 Gmail account for sending emails
 
+--------------------------------------------------------------------
 
+## What to do
+All you need to is to create mongoDB database get connection string. In the root of your backend folder create .env file copy and paste all the envirometal variables from up above in that env file.
+Change MONGO_URI to connection string you grabbed from mongoDB. Set your email and gmail app password in the envirometal variables and your are all set
 
-Installation
-# Clone the repository
+--------------------------------------------------------------------
+
+# Installation
+## Clone the repository
 git clone https://github.com/LukaLomtadze/AUTH_SYSTEM.git
 
 cd project-name
 
-# Install dependencies
+## Install dependencies
 npm install
 
-# Start server
+## Start server
 npm run dev
 
+--------------------------------------------------------------------
 
-Environment Variables
+## Environment Variables
 
 PORT=4040
 
@@ -81,7 +88,7 @@ BACKEND_URL=http://localhost:4040
 NODE_ENV=development
 
 
-
+--------------------------------------------------------------------
 
 
 | Method | Route                            | Description                             |
@@ -95,7 +102,7 @@ NODE_ENV=development
 | GET    | /api/auth/checkAuth              | Check if user is logged in (JWT cookie) |
 
 
-Email Templates:
+## Email Templates:
 
 Verification Email: Sends a 6-digit verification code to new users.
 
@@ -107,16 +114,10 @@ Password Reset Success: Confirms password has been changed.
 
 All templates are located in Mailer/emailTemplates.js and can be customized easily.
 
+--------------------------------------------------------------------
 
 
-
-All you need to is to create mongoDB database get connection string. In the root of your backend folder create .env file copy and paste all the envirometal variables from up above in that env file.
-Change MONGO_URI to connection string you grabbed from mongoDB. Set your email and gmail app password in the envirometal variables and your are all set
-
-
-
-
-Optional: Reusable Notes
+## Optional: Reusable Notes
 You can replace Gmail with any other SMTP provider in Nodemailer.
 Use HTTPS in CLIENT_URL for production to avoid Gmail stripping links.
 All JWT tokens are stored in httpOnly cookies for security.
